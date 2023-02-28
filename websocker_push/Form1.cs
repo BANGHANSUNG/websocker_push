@@ -52,7 +52,13 @@ namespace websocker_push
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            server.WebSocketServices.Broadcast("00000000000");
+            //server.WebSocketServices.Broadcast("00000000000");
+
+            string message = "websocket test";
+            byte[] data = Encoding.UTF8.GetBytes(message);
+            server.WebSocketServices.Broadcast(data);
+
+
             //메세지를 보내는 영역 .  id를 개별로 받아서 서로 통신 할 수 있도록 정리 필요.
         }
         public string Message

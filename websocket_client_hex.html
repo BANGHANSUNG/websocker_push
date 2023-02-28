@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>WebSocket</title>
+</head>
+<body>
+    <h1>WebSocket 테스트</h1>
+    <div>
+        <input type="text" id="txtMessage" />
+        <button type="button" id="btnSend">Send</button>
+    </div>
+    <div id="messages"></div>
+    <script>
+        var ws = new WebSocket("ws://localhost:8080/Echo");
+        ws.onmessage = function (event) {
+            var message = event.data;
+            var reader = new FileReader();
+            reader.addEventListener("loadend", function () {
+                var arrayBuffer = reader.result;
+                var uint8Array = new Uint8Array(arrayBuffer);
+                var hexString = "";
+                for (var i = 0; i < uint8Array.length; i++) {
+                    hexString += uint8Array[i].toString(16).padStart(2, "0");
+                }
+                var div = document.createElement("div");
+                div.innerText = hexString;
+                document.getElementById("messages").appendChild(div);
+            });
+            reader.readAsArrayBuffer(message);
+        };
+        document.getElementById("btnSend").addEventListener("click", function () {
+            var message = document.getElementById("txtMessage").value;
+            ws.send(message);
+        });
+    </script>
+</body>
+</html>
