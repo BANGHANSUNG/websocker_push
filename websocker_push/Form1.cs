@@ -88,22 +88,25 @@ namespace websocker_push
     {
         protected override void OnMessage(MessageEventArgs e)
         {
-           // Send("websocket" + e.Data);
+            // Send("websocket" + e.Data);
 
-            var msg = e.Data;
-            Console.WriteLine("Received message: " + msg);
+            //var msg = e.Data;
+            var msg = e.RawData;
+            var str = Encoding.UTF8.GetString(msg);
+            var hexString = BitConverter.ToString(msg).Replace("-", " ");
+            Console.WriteLine("Received message: " + hexString);
             Send(msg);
             // Form1.SetText(msg);
             var form = Application.OpenForms.OfType<Form1>().FirstOrDefault();
             if (form != null)
             {
-                form.SetText(msg);
+                form.SetText(hexString);
             }
 
 
         }
 
-}
+    }
 
 
 }
