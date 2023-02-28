@@ -72,7 +72,7 @@ namespace websocker_push
         public void SetText(string text)
         {
             textBox1.Invoke((MethodInvoker)delegate {
-                textBox1.Text = text + "/r/n" + textBox1.Text;
+                textBox1.Text = text + "\r\n" + textBox1.Text;
                 button4.BackColor = Color.FromArgb(255, 255, 0, 0);
             });
         }
